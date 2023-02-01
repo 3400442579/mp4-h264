@@ -18,12 +18,12 @@ target_include_directories(mp4-encoder PRIVATE
 if(EMSCRIPTEN)
     set(CMAKE_CXX_FLAGS "\
         ${CMAKE_CXX_FLAGS}\
-        -s ALLOW_MEMORY_GROWTH=1\
+        -s ALLOW_MEMORY_GROWTH=0\
         -s DISABLE_EXCEPTION_CATCHING=1\
         -s WASM=1\
         -s IGNORE_MISSING_MAIN\
         -s TEXTDECODER=0\
-        -s MODULARIZE=1\
+        -s MODULARIZE=0\
         -s FILESYSTEM=0\
         -s ASSERTIONS=0\
         -Wno-invalid-source-encoding\
@@ -45,8 +45,9 @@ if(EMSCRIPTEN)
     if (WEB)
       set(CMAKE_CXX_FLAGS "\
           ${CMAKE_CXX_FLAGS}\
-          -s EXPORT_ES6=1\
+          -s EXPORT_ES6=0\
           -s ENVIRONMENT=web,worker\
+          -s EXPORTED_FUNCTIONS='[_malloc,_free]'\
       ")
 
       if(USE_SIMD)
